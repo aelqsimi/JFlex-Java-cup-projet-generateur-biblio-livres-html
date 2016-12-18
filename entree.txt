@@ -1,5 +1,5 @@
 {
-\auteurs auteurs
+\auteurs auteur1 
 \type blabla
 \titre coucou11
 \critiques ddddd aaaaa
