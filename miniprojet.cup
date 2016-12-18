@@ -1,0 +1,106 @@
+import java_cup.runtime.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+parser code {:
+	public static void main(String args[]) throws Exception {
+		new parser(new Yylex(System.in)).parse();
+	}
+:}
+
+action code {:
+	public static File file;
+	public 	static FileWriter fw;
+	static int cpt = 0;
+
+	public static void writeInFile(String str) throws IOException{
+		fw.write(str);
+	}
+
+	public static void closeFile() throws IOException{
+		String str = "</table>\n</div>\n<p>Chouette je possède " + String.valueOf(cpt) + " livre(s) ! :) :) :)</p>\n</body>\n</html>";
+		fw.write(str);
+		fw.close();
+	}
+
+	public static void ini() {
+		try{
+			file = new File("sortie.html");
+			fw = new FileWriter(file);
+		}catch (IOException e){
+			System.out.println("Erreur lors de la création du fichier "); 
+		};
+	}
+	String[] tAuteurs;
+	String strTitre="", strType="", strCritiques="", strAuteurs="",strAF="",strAO="";
+	String strComment1 ="", strComment2 ="", strComment3 ="", strComment4 ="", strComment5 ="", strComment6 ="", strComment7 ="";
+	String str = "<!doctype html>\n"+
+"<html lang=\"fr\">\n"+
+"<head>\n"+
+"<meta charset=\"UTF-8\">\n"+
+"<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">\n"+
+"<title>Ma super bibliothèque Wahoouoououououououououououou</title>\n"+
+"</head>\n"+
+"<body>\n"+
+"<p>J'ai une chouette bibliothèque :</p>\n"+
+"<div style=\"overflow-x:auto;\">\n"+
+"<table>\n"+
+"<tr id=\"head\">\n"+
+"<td> Titre </td>\n"+
+"<td> Auteur(s) </td>\n"+
+"<td> Type </td>\n"+
+"<td> Lien </td>\n"+
+"</tr>\n";
+
+:}
+
+terminal String TITRE,AUTEURS,TYPE,CRITIQUES, COMMENT;
+terminal AO,AF,NL;
+
+non terminal programme, liste_attr, attr, com1 , com2 , com3 , com4 , com5 , com6 , com7, ao, af,x;
+
+programme ::= {: ini();writeInFile(str); :} liste_attr {: closeFile();System.out.println("Analyse terminée ! "); :}
+        | {: System.out.println("Entre vide ! "); :};
+
+liste_attr ::= attr liste_attr|attr;
+
+
+attr ::= com1 ao com2 x com3 x com4 x com5 x com6 af com7 {:cpt++;
+	if(strComment1.length()>0) writeInFile(strComment1+"\n"); strComment1 ="";
+	writeInFile("<tr>\n");
+	if(strComment2.length()>0) writeInFile(strComment2+"\n"); strComment2 ="";
+	writeInFile("<td><i>"+ strTitre +"</i></td>\n"); 
+	if(strComment3.length()>0) writeInFile(strComment3+"\n"); strComment3 ="";
+	writeInFile("<td>");for(int i=0; i < tAuteurs.length;i++)   writeInFile("<b>"+ tAuteurs[i] +"</b><br>"); writeInFile("</td>\n");
+	if(strComment4.length()>0) writeInFile(strComment4+"\n"); strComment4 ="";
+	writeInFile("<td>"+ strType +"</td>\n");
+	if(strComment5.length()>0) writeInFile(strComment5+"\n"); strComment5 ="";
+	if(strCritiques.length()>0) {writeInFile("<td><a href=\""+ strCritiques +"\">Critique</a></td>\n");} 
+	else {writeInFile("<td></td>\n");} 
+	if(strComment6.length()>0) writeInFile(strComment6+"\n"); strComment6 ="";
+	writeInFile("</tr>\n");
+	if(strComment7.length()>0) writeInFile(strComment7+"\n"); strComment7 ="";
+:};
+
+ao ::= AO;
+
+x ::= TITRE:titre {: strTitre = titre;:}
+
+| AUTEURS:auteurs {: tAuteurs = auteurs.split("&");:}
+       
+| TYPE:type {: strType = type;:}
+
+| CRITIQUES:critiques {: strCritiques = critiques; :};
+
+af ::=  AF;
+
+com1 ::= COMMENT:c1 {:strComment1 = strComment1+"<!--"+c1+"-->\n";:} com1|;
+com2 ::= COMMENT:c2 {:strComment2 = strComment2+"<!--"+c2+"-->\n";:} com2|;
+com3 ::= COMMENT:c3 {:strComment3 = strComment3+"<!--"+c3+"-->\n";:} com3|;
+com4 ::= COMMENT:c4 {:strComment4 = strComment4+"<!--"+c4+"-->\n";:} com4|;
+com5 ::= COMMENT:c5 {:strComment5 = strComment5+"<!--"+c5+"-->\n";:} com5|;
+com6 ::= COMMENT:c6 {:strComment6 = strComment6+"<!--"+c6+"-->\n";:} com6|;
+com7 ::= COMMENT:c7 {:strComment7 = strComment7+"<!--"+c7+"-->\n";:} com7|;

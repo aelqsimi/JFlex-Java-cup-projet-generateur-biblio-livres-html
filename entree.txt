@@ -1,0 +1,102 @@
+{
+\auteurs auteurs
+\type blabla
+\titre coucou11
+\critiques ddddd aaaaa
+}
+
+%% sequence ignorée
+lkjklhjkh
+
+%% commentaire1
+{
+%% commentaire1
+%% commentaire2
+%% commentaire2
+			%% commentaire2
+
+
+				\titre coucou22 
+\auteurs auteurs %% commentaire auteur
+\type blabla
+\critiques ddddd aaaaa 
+}
+
+%% livre ingoré
+{
+dzdkzdz,k,
+}
+
+
+{
+\titre trththrt33
+\auteurs auteurs
+\type blabla
+\critiques ddddd aaaaa
+}
+
+%% livre ingoré
+
+{
+{{{{{}}}}}
+}
+
+
+{
+\titre coucuuyuiiou44
+\auteurs auteurs
+\type blabla
+\critiques ddddd aaaaa
+}
+{
+\titre coucozzzezu
+\auteurs auteurs
+\type blabla
+\critiques ddddd aaaaa
+}
+{
+\titre coucou
+\auteurs auteurs
+\type blabla
+\critiques ddddd aaaaa
+}
+{
+\titre coucou
+\auteurs auteurs
+\type blabla
+\critiques ddddd aaaaa
+}
+{
+\titre coucou
+\auteurs auteur1 &auteur2 &auteur3
+\type blabla
+\critiques ddddd aaaaa
+}
+{
+\titre coucou
+\auteurs auteurs
+\type blabla
+\critiques ddddd aaaaa
+}
+
+%% livre sans titre (accepté)
+{
+\titre 
+\auteurs auteurs
+\type blabla
+\critiques ddddd aaaaa
+}
+
+
+{
+\titre coucou
+\auteurs auteurs
+\type blabla
+\critiques ddddd aaaaa
+}
+{
+\titre coucou
+\auteurs auteurs
+\type blabla
+\critiques ddddd aaaaa
+}
